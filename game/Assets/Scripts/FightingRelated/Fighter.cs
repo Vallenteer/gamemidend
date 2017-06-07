@@ -31,7 +31,7 @@ public class Fighter : MonoBehaviour {
     }
     public void UpdateHumanInput()
     {
-        if (Input.GetAxis("Horizontal") > 0.1)
+        if (Input.GetAxis("Vertical") > 0.1)
         {
             animator.SetBool("WALK", true);
         }
@@ -40,7 +40,7 @@ public class Fighter : MonoBehaviour {
             animator.SetBool("WALK", false);
         }
 
-        if (Input.GetAxis("Horizontal") < -0.1)
+        if (Input.GetAxis("Vertical") < -0.1)
         {
             animator.SetBool("WALK_BACK", true);
         }
@@ -48,7 +48,23 @@ public class Fighter : MonoBehaviour {
         {
             animator.SetBool("WALK_BACK", false);
         }
-        
+        if (Input.GetAxis("Horizontal") < -0.1)
+        {
+            animator.SetBool("LEFT", true);
+        }
+        else
+        {
+            animator.SetBool("LEFT", false);
+        }
+        if (Input.GetAxis("Horizontal") > 0.1)
+        {
+            animator.SetBool("RIGHT", true);
+        }
+        else
+        {
+            animator.SetBool("RIGHT", false);
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetTrigger("ATTACK");

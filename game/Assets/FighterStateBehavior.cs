@@ -9,6 +9,7 @@ public class FighterStateBehavior : StateMachineBehaviour {
 
     public float horizontalForce;
     public float verticalForce;
+    public float rotationForce;
 
     protected Fighter fighter;
     override public void OnStateEnter(Animator animator,
@@ -31,5 +32,6 @@ public class FighterStateBehavior : StateMachineBehaviour {
                                        AnimatorStateInfo stateInfo, int layerIndex)
     {
         fighter.body.AddRelativeForce(new Vector3(0, 0, horizontalForce));
+        fighter.transform.Rotate(new Vector3(0, rotationForce, 0));
     }
 }
