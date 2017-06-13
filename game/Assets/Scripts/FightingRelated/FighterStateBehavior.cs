@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FighterStateBehavior : StateMachineBehaviour {
    
-    //public FighterStates behaviorState;
+    public FighterStates behaviorState;
     //public AudioClip soundEffect;
 
     public float horizontalForce;
@@ -19,7 +19,7 @@ public class FighterStateBehavior : StateMachineBehaviour {
         {
             fighter = animator.gameObject.GetComponent<Fighter>();
         }
-       // fighter.currentState = behaviorState;
+        fighter.currentState = behaviorState;
 
         //if (soundEffect != null)
         //{

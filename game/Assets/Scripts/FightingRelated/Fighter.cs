@@ -16,7 +16,7 @@ public class Fighter : MonoBehaviour {
     public bool enable;
 
     public PlayerType player;
-    //public FighterStates currentState = FighterStates.IDLE;
+    public FighterStates currentState = FighterStates.IDLE;
 
     protected Animator animator;
     private Rigidbody myBody;
@@ -77,14 +77,84 @@ public class Fighter : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-        UpdateHumanInput();
-	}
+        if (player == PlayerType.HUMAN)
+        {
+            UpdateHumanInput();
+        }
+        //else
+        //{
+        //   // UpdateAiInput();
+        //}
+
+        if (health <= 0 && currentState != FighterStates.DIED)
+        {
+            animator.SetTrigger("DIED");
+        }
+
+    }
 
     public Rigidbody body
     {
         get
         {
             return this.myBody;
+        }
+    }
+
+    public virtual void hurt(float damage)
+    {
+        if (!invulnerable)
+        {
+            if (defending)
+            {
+                damage *= 0.2f;
+            }
+            if (health >= damage)
+            {
+                health -= damage;
+            }
+            else
+            {
+                health = 0;
+            }
+
+            if (health > 0)
+            {
+                animator.SetTrigger("TAKE_HIT");
+            }
+        }
+    }
+    public bool defending
+    {
+        get
+        {
+            return currentState == FighterStates.DEFEND
+                || currentState == FighterStates.TAKE_HIT_DEFEND;
+        }
+    }
+    public bool invulnerable
+    {
+        get
+        {
+            return currentState == FighterStates.TAKE_HIT
+                || currentState == FighterStates.TAKE_HIT_DEFEND
+                    || currentState == FighterStates.DIED;
+        }
+    }
+
+    public bool attacking
+    {
+        get
+        {
+            return currentState == FighterStates.ATTACK;
+        }
+    }
+
+    public float healtPercent
+    {
+        get
+        {
+            return health / MAX_HEALTH;
         }
     }
 }
