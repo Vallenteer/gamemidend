@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Fighter : MonoBehaviour {
+using UnityEngine.Networking;
+public class Fighter : NetworkBehaviour
+{
     public enum PlayerType
     {
         HUMAN, AI
@@ -18,7 +19,7 @@ public class Fighter : MonoBehaviour {
     public PlayerType player;
     public FighterStates currentState = FighterStates.IDLE;
 
-    protected Animator animator;
+    public Animator animator;
     private Rigidbody myBody;
     private AudioSource audioPlayer;
 
@@ -77,6 +78,10 @@ public class Fighter : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
         if (player == PlayerType.HUMAN)
         {
             UpdateHumanInput();
@@ -86,10 +91,10 @@ public class Fighter : MonoBehaviour {
         //   // UpdateAiInput();
         //}
 
-        if (health <= 0 && currentState != FighterStates.DIED)
-        {
-            animator.SetTrigger("DIED");
-        }
+        //if (health <= 0 && currentState != FighterStates.DIED)
+        //{
+        //    animator.SetTrigger("DIED");
+        //}
 
     }
 
@@ -156,5 +161,9 @@ public class Fighter : MonoBehaviour {
         {
             return health / MAX_HEALTH;
         }
+
+
     }
+
+
 }
