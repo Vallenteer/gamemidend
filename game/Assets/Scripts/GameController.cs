@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-	[SerializeField] private GameObject arenaCircle;
+	[SerializeField] private Renderer arenaRenderer;
+	[SerializeField] bool hideArenaOnTrackingLost;
 
-	public GameObject ArenaCircle {
+	public bool HideArenaOnTrackingLost {
 		get {
-			return arenaCircle;
+			return hideArenaOnTrackingLost;
 		}
 	}
-		
+			
 	// Use this for initialization
 	void Start () {
-		arenaCircle.SetActive (false);
+		//arenaCircle.SetActive (false);
+		arenaRenderer.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -22,7 +24,9 @@ public class GameController : MonoBehaviour {
 		
 	}
 
-	public void BuildArena() {
-		arenaCircle.SetActive (true);
+	public void BuildArena(bool val) {
+		//arenaCircle.SetActive (val);
+		arenaRenderer.enabled = val;
 	}
+
 }

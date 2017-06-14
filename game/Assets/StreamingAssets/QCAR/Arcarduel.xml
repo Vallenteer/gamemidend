@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
+    <ImageTarget name="eevee" size="1.000000 1.395918" />
     <ImageTarget name="WZK71815-DireBoar" size="25.000000 19.196428" />
   </Tracking>
 </QCARConfig>

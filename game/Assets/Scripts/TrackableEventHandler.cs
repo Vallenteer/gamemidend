@@ -9,8 +9,10 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 {
 	#region PRIVATE_MEMBER_VARIABLES
 
+	[SerializeField] bool inanimateObjectOnStart;
 	private TrackableBehaviour mTrackableBehaviour;
 	private GameController gameController;
+	private Rigidbody rb;
 
 	#endregion // PRIVATE_MEMBER_VARIABLES
 
@@ -25,7 +27,11 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 		{
 			mTrackableBehaviour.RegisterTrackableEventHandler(this);
 		}
+
 		gameController = Component.FindObjectOfType<GameController> ();
+		rb = GetComponentInChildren<Rigidbody> ();
+		if(rb)
+			rb.isKinematic = inanimateObjectOnStart;
 
 		CameraDevice.Instance.SetFocusMode (CameraDevice.FocusMode.FOCUS_MODE_CONTINUOUSAUTO);
 	}
@@ -65,7 +71,8 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 
 	private void OnTrackingFound()
 	{	
-		gameController.BuildArena ();
+		gameController.BuildArena (true);
+		rb.isKinematic = false;
 
 		Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
 		Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
@@ -91,7 +98,11 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 	private void OnTrackingLost()
 	{
 		//rbComponent.isKinematic = true;
-
+		if(gameController && gameController.HideArenaOnTrackingLost) gameController.BuildArena (false);
+		//gameController.DestroyArena();
+		if(rb)
+			rb.isKinematic = true;
+		
 		Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
 		Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
