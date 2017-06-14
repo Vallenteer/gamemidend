@@ -120,7 +120,7 @@ public class Fighter : MonoBehaviour {
 
             if (health > 0)
             {
-                animator.SetTrigger("TAKE_HIT");
+                animator.SetTrigger("GET_HIT");
             }
         }
     }
@@ -129,15 +129,15 @@ public class Fighter : MonoBehaviour {
         get
         {
             return currentState == FighterStates.DEFEND
-                || currentState == FighterStates.TAKE_HIT_DEFEND;
+                || currentState == FighterStates.GET_HIT_DEFEND;
         }
     }
     public bool invulnerable
     {
         get
         {
-            return currentState == FighterStates.TAKE_HIT
-                || currentState == FighterStates.TAKE_HIT_DEFEND
+            return currentState == FighterStates.GET_HIT
+                || currentState == FighterStates.GET_HIT_DEFEND
                     || currentState == FighterStates.DIED;
         }
     }
