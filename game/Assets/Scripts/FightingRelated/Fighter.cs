@@ -12,8 +12,13 @@ public class Fighter : MonoBehaviour {
 
     public float health = MAX_HEALTH;
     public string fighterName;
-    public Fighter oponent;
+    //FOR AI
+    Fighter oponent;
     public bool enable;
+
+    //for AI only
+    private float random;
+    private float randomSetTime;
 
     public PlayerType player;
     public FighterStates currentState = FighterStates.IDLE;
@@ -27,8 +32,60 @@ public class Fighter : MonoBehaviour {
     {
         myBody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        //audioPlayer = GetComponent<AudioSource>();
+        GameObject[] ToFindOponent = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject enemy in ToFindOponent)
+        {
+            if (enemy != gameObject)
+            {
+                oponent = enemy.GetComponent<Fighter>();
+            }
+        }
     }
+
+    private float getRotationOpponent()
+    {
+        return Vector3.Angle(gameObject.transform.forward, oponent.transform.position - gameObject.transform.position);
+    }
+    private float getDistanceToOponent()
+    {
+        return Vector3.Distance(new Vector3(oponent.transform.position.x, oponent.transform.position.y, oponent.transform.position.z), (new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)));
+    }
+
+    public void UpdateAiInput()
+    {
+        //turn
+        if (getRotationOpponent() < 10)
+        {
+            animator.SetBool("LEFT", true);
+        }
+        else
+        {
+            animator.SetBool("LEFT", false);
+        }
+        if (getRotationOpponent() > 30)
+        {
+            animator.SetBool("RIGHT", true);
+        }
+        else
+        {
+            animator.SetBool("RIGHT", false);
+        }
+
+        //to move forward
+        if (getDistanceToOponent() > 7)
+        {
+            animator.SetBool("WALK", true);
+        }
+        else
+        {
+            animator.SetBool("WALK", false);
+        }
+
+
+
+
+    }
+
     public void UpdateHumanInput()
     {
         if (Input.GetAxis("Vertical") > 0.1)
@@ -81,10 +138,10 @@ public class Fighter : MonoBehaviour {
         {
             UpdateHumanInput();
         }
-        //else
-        //{
-        //   // UpdateAiInput();
-        //}
+        else
+        {
+            UpdateAiInput();
+        }
 
         if (health <= 0 && currentState != FighterStates.DIED)
         {
