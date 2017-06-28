@@ -72,16 +72,32 @@ public class Fighter : MonoBehaviour {
         }
 
         //to move forward
-        if (getDistanceToOponent() > 7)
+        if (random < 0.8 || getDistanceToOponent()<7)
         {
-            animator.SetBool("WALK", true);
-        }
-        else
-        {
-            animator.SetBool("WALK", false);
+            if (getDistanceToOponent() > 7)
+            {
+                animator.SetBool("WALK", true);
+            }
+            else
+            {
+                animator.SetBool("WALK", false);
+            }
+
+            if (Time.time - randomSetTime > 1)
+            {
+                random = Random.value;
+                randomSetTime = Time.time;
+            }
         }
 
-
+        if (random > 0.6 && getDistanceToOponent() < 6.5 && oponent.health > 0.01)
+        {
+            animator.SetTrigger("ATTACK");
+        }
+        else if (random < 0.4 && getDistanceToOponent() > 6.6 && getDistanceToOponent() < 10 && oponent.health > 0.01)
+        {
+            animator.SetTrigger("SPECIAL");
+        }
 
 
     }
