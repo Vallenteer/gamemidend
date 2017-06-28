@@ -148,6 +148,15 @@ public class Fighter : MonoBehaviour {
             animator.SetTrigger("SPECIAL");
         }
     }
+
+	public void OnAttackButton() {
+		animator.SetTrigger("ATTACK");
+	}
+
+	public void OnMagicButton() {
+		animator.SetTrigger("SPECIAL");
+	}
+
     // Update is called once per frame
     void Update () {
         if (player == PlayerType.HUMAN)
