@@ -13,7 +13,7 @@ public class Fighter : MonoBehaviour {
     public float health = MAX_HEALTH;
     public string fighterName;
     //FOR AI
-    Fighter oponent;
+    public Fighter oponent;
     public bool enable;
 
     //for AI only
@@ -82,19 +82,19 @@ public class Fighter : MonoBehaviour {
             {
                 animator.SetBool("WALK", false);
             }
-
-            if (Time.time - randomSetTime > 1)
-            {
-                random = Random.value;
-                randomSetTime = Time.time;
-            }
+                        
+        }
+        if (Time.time - randomSetTime > 1)
+        {
+            random = Random.value;
+            randomSetTime = Time.time;
         }
 
         if (random > 0.6 && getDistanceToOponent() < 6.5 && oponent.health > 0.01)
         {
             animator.SetTrigger("ATTACK");
         }
-        else if (random < 0.4 && getDistanceToOponent() > 6.6 && getDistanceToOponent() < 10 && oponent.health > 0.01)
+        else if (random < 0.2 && getDistanceToOponent() > 10 && getDistanceToOponent() < 15 && oponent.health > 40)
         {
             animator.SetTrigger("SPECIAL");
         }
