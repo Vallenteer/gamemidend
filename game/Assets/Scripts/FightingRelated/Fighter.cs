@@ -19,6 +19,7 @@ public class Fighter : MonoBehaviour {
     //for AI only
     private float random;
     private float randomSetTime;
+    private float sizeModel;
 
     public PlayerType player;
     public FighterStates currentState = FighterStates.IDLE;
@@ -32,6 +33,8 @@ public class Fighter : MonoBehaviour {
     {
         myBody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        sizeModel = transform.localScale.x;
+
         GameObject[] ToFindOponent = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject enemy in ToFindOponent)
         {
@@ -48,7 +51,7 @@ public class Fighter : MonoBehaviour {
     }
     private float getDistanceToOponent()
     {
-        return Vector3.Distance(new Vector3(oponent.transform.position.x, oponent.transform.position.y, oponent.transform.position.z), (new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)));
+        return Vector3.Distance(new Vector3(oponent.transform.position.x, oponent.transform.position.y, oponent.transform.position.z), (new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)))/sizeModel;
     }
 
     public void UpdateAiInput()

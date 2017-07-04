@@ -17,7 +17,7 @@ public class FireStrikeStateBehavior : FighterStateBehavior
             new Vector3(fighterX, 1, fighterZ),
             Quaternion.Euler(0, 0, 0)
             ) as GameObject;
-
+        instance.transform.localScale = new Vector3(fighter.transform.localScale.x, fighter.transform.localScale.y, fighter.transform.localScale.z);
         DigitalRuby.PyroParticles.FireCollisionForwardScript FireStrike = instance.GetComponent<DigitalRuby.PyroParticles.FireCollisionForwardScript>();
         FireStrike.caster = fighter;
     }
