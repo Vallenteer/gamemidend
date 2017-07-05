@@ -41,6 +41,7 @@ public class Fighter : MonoBehaviour {
             if (enemy != gameObject)
             {
                 oponent = enemy.GetComponent<Fighter>();
+                Debug.Log(oponent.name);
             }
         }
     }
@@ -149,6 +150,11 @@ public class Fighter : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.H))
         {
             animator.SetTrigger("SPECIAL");
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            animator.SetTrigger("ULTIMATE");
         }
     }
 
