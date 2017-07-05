@@ -9,7 +9,7 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 {
 	#region PRIVATE_MEMBER_VARIABLES
 
-	[SerializeField] bool inanimateObjectOnStart;
+	[SerializeField] bool kinemateObjectOnStart;
 	[SerializeField] string characterID;
 	private TrackableBehaviour mTrackableBehaviour;
 	private GameController gameController;
@@ -32,7 +32,7 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 		gameController = Component.FindObjectOfType<GameController> ();
 		rb = GetComponentInChildren<Rigidbody> ();
 		if(rb)
-			rb.isKinematic = inanimateObjectOnStart;
+			rb.isKinematic = kinemateObjectOnStart;
 
 		CameraDevice.Instance.SetFocusMode (CameraDevice.FocusMode.FOCUS_MODE_CONTINUOUSAUTO);
 	}
@@ -59,7 +59,7 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 		}
 		else
 		{
-			//OnTrackingLost();
+			OnTrackingLost();
 		}
 	}
 
