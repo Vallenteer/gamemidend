@@ -10,6 +10,7 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 	#region PRIVATE_MEMBER_VARIABLES
 
 	[SerializeField] bool inanimateObjectOnStart;
+	[SerializeField] string characterID;
 	private TrackableBehaviour mTrackableBehaviour;
 	private GameController gameController;
 	private Rigidbody rb;
@@ -58,7 +59,7 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 		}
 		else
 		{
-			OnTrackingLost();
+			//OnTrackingLost();
 		}
 	}
 
@@ -71,7 +72,8 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 
 	private void OnTrackingFound()
 	{	
-		gameController.BuildArena (true);
+		CharacterData.LoadCharacterData (characterID);
+		gameController.CharacterFound (CharacterData.LoadedCharData);
 		rb.isKinematic = false;
 
 		Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
