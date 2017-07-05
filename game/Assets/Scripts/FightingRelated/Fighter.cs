@@ -174,7 +174,23 @@ public class Fighter : MonoBehaviour {
         }
         else
         {
-            UpdateAiInput();
+            if (oponent == null)
+            {
+                GameObject[] ToFindOponent = GameObject.FindGameObjectsWithTag("Player");
+                foreach (GameObject enemy in ToFindOponent)
+                {
+                    if (enemy != gameObject)
+                    {
+                        oponent = enemy.GetComponent<Fighter>();
+                        Debug.Log(oponent.name);
+                    }
+                }
+            }
+            else
+            {
+                UpdateAiInput();
+            }
+            
         }
 
         if (health <= 0 && currentState != FighterStates.DIED)
