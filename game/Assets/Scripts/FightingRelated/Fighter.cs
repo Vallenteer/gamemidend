@@ -280,4 +280,5 @@ public class Fighter : MonoBehaviour {
             return health / MAX_HEALTH;
         }
     }
+    
 }
