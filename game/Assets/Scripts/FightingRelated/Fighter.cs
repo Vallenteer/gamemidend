@@ -167,12 +167,20 @@ public class Fighter : MonoBehaviour {
     }
 
 	public void OnAttackButton() {
-		animator.SetTrigger("ATTACK");
+        if (player == PlayerType.HUMAN)
+        { animator.SetTrigger("ATTACK"); }
 	}
 
 	public void OnMagicButton() {
-		animator.SetTrigger("SPECIAL");
+
+        if (player == PlayerType.HUMAN)
+        { animator.SetTrigger("SPECIAL"); }
 	}
+    public void OnUlimateButton() {
+        if (player == PlayerType.HUMAN)
+        { animator.SetTrigger("ULITMATE"); }
+    }
+
 
     // Update is called once per frame
     void Update () {
