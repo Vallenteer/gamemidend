@@ -7,6 +7,10 @@ public class Fighter : MonoBehaviour {
     {
         HUMAN, AI
     };
+    //for Human 
+    private LeftJoystick leftJoystick;
+    float leftJoystickInputX;
+    float leftJoystickInputY;
 
     public static float MAX_HEALTH = 100f;
 
@@ -34,14 +38,15 @@ public class Fighter : MonoBehaviour {
         myBody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         sizeModel = transform.localScale.x;
-
+        leftJoystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<LeftJoystick>();
+       // Debug.Log(leftJoystick);
         GameObject[] ToFindOponent = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject enemy in ToFindOponent)
         {
             if (enemy != gameObject)
             {
                 oponent = enemy.GetComponent<Fighter>();
-                Debug.Log(oponent.name);
+                //Debug.Log(oponent.name);
             }
         }
     }
@@ -108,7 +113,10 @@ public class Fighter : MonoBehaviour {
 
     public void UpdateHumanInput()
     {
-        if (Input.GetAxis("Vertical") > 0.1)
+        leftJoystickInputX = leftJoystick.GetInputDirection().x;
+        leftJoystickInputY = leftJoystick.GetInputDirection().y;
+
+        if (Input.GetAxis("Vertical") > 0.1| leftJoystickInputY > 0.1)
         {
             animator.SetBool("WALK", true);
         }
@@ -117,7 +125,7 @@ public class Fighter : MonoBehaviour {
             animator.SetBool("WALK", false);
         }
 
-        if (Input.GetAxis("Vertical") < -0.1)
+        if (Input.GetAxis("Vertical") < -0.1||leftJoystickInputY<-0.1)
         {
             animator.SetBool("WALK_BACK", true);
         }
@@ -125,7 +133,7 @@ public class Fighter : MonoBehaviour {
         {
             animator.SetBool("WALK_BACK", false);
         }
-        if (Input.GetAxis("Horizontal") < -0.1)
+        if (Input.GetAxis("Horizontal") < -0.1|| leftJoystickInputX<-0.5)
         {
             animator.SetBool("LEFT", true);
         }
@@ -133,7 +141,7 @@ public class Fighter : MonoBehaviour {
         {
             animator.SetBool("LEFT", false);
         }
-        if (Input.GetAxis("Horizontal") > 0.1)
+        if (Input.GetAxis("Horizontal") > 0.1||leftJoystickInputX>0.5)
         {
             animator.SetBool("RIGHT", true);
         }
