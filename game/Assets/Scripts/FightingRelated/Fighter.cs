@@ -21,9 +21,16 @@ public class Fighter : MonoBehaviour {
     public bool enable;
 
     //for AI only
+    [Header("FOR AI")]
     private float random;
     private float randomSetTime;
     private float sizeModel;
+    public float distanceEnemy = 7f;
+    public float distanceForUlti = 9f;
+    [Tooltip("Batas bawah")]
+    public float distanceForSpecialDownLimit = 10f;
+    [Tooltip("Batas atas")]
+    public float distanceForSpecialUpperLimit = 15f;
 
     public PlayerType player;
     public FighterStates currentState = FighterStates.IDLE;
@@ -81,9 +88,9 @@ public class Fighter : MonoBehaviour {
         }
 
         //to move forward
-        if (random < 0.8 || getDistanceToOponent()<7)
+        if (random < 0.8 || getDistanceToOponent()<distanceEnemy)
         {
-            if (getDistanceToOponent() > 7)
+            if (getDistanceToOponent() > distanceEnemy)
             {
                 animator.SetBool("WALK", true);
             }
@@ -99,13 +106,17 @@ public class Fighter : MonoBehaviour {
             randomSetTime = Time.time;
         }
 
-        if (random > 0.6 && getDistanceToOponent() < 6.5 && oponent.health > 0.01)
+        if (random > 0.6 && getDistanceToOponent() < distanceEnemy && oponent.health > 0.01)
         {
             animator.SetTrigger("ATTACK");
         }
-        else if (random < 0.2 && getDistanceToOponent() > 10 && getDistanceToOponent() < 15 && oponent.health > 40)
+        else if (random < 0.2 && getDistanceToOponent() > distanceForSpecialDownLimit && getDistanceToOponent() < distanceForSpecialUpperLimit && oponent.health > 40)
         {
             animator.SetTrigger("SPECIAL");
+        }
+        else if (random < 0.5 && random >0.3 && getDistanceToOponent() > distanceForUlti && oponent.health > 50)
+        {
+            animator.SetTrigger("ULTIMATE");
         }
 
 
