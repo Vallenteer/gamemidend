@@ -31,6 +31,10 @@ public class Fighter : MonoBehaviour {
     public float distanceForSpecialDownLimit = 10f;
     [Tooltip("Batas atas")]
     public float distanceForSpecialUpperLimit = 15f;
+    [Tooltip("Batas Rotatsi Kanan")]
+    public float rotationRightLimit =20f;
+    [Tooltip("Batas Rotasi Kiri")]
+    public float rotationLeftLimit = 10f;
 
     public PlayerType player;
     public FighterStates currentState = FighterStates.IDLE;
@@ -70,7 +74,7 @@ public class Fighter : MonoBehaviour {
     public void UpdateAiInput()
     {
         //turn
-        if (getRotationOpponent() < 10)
+        if (getRotationOpponent() < rotationLeftLimit)
         {
             animator.SetBool("LEFT", true);
         }
@@ -78,7 +82,7 @@ public class Fighter : MonoBehaviour {
         {
             animator.SetBool("LEFT", false);
         }
-        if (getRotationOpponent() > 30)
+        if (getRotationOpponent() > rotationRightLimit)
         {
             animator.SetBool("RIGHT", true);
         }
