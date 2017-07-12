@@ -15,9 +15,9 @@ public class GameController : MonoBehaviour {
 	[SerializeField] private Renderer arenaRenderer;
 	[SerializeField] bool hideArenaOnTrackingLost;
 	[SerializeField] Text healthText;
-	[HideInInspector] public CharacterData ActiveCharacter;
+	[HideInInspector] public CharacterData SummonedCharacter;
+	[HideInInspector] public CharacterData EnemyCharacter;
 	private int healthVal;
-	private int magicVal;
 
 	public bool HideArenaOnTrackingLost {
 		get {
@@ -43,9 +43,8 @@ public class GameController : MonoBehaviour {
 
 	public void CharacterFound(CharacterData cd) {
 		BuildArena (true);
-		ActiveCharacter = cd;
+		SummonedCharacter = cd;
 		SetHealth (cd.HP);
-		magicVal = cd.MP;
 	}
 
 	void SetHealth(int val) {

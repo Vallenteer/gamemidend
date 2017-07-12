@@ -11,20 +11,33 @@ public class CharacterData {
 
 	public static CharacterData LoadedCharData;
 	public string charID;
+	public string Namae;
 	public int HP;
-	public int MP;
+	public int Level;
+	public float CooldownSkill1;
+	public float CooldownSkill2;
+	public float AtkPower;
+
 
 	public CharacterData () {
 		charID = null;
 		HP = 0;
-		MP = 0;
+		Namae = null;
+		HP = 0;
+		Level = 1;
+		CooldownSkill1 = 0;
+		CooldownSkill2 = 0;
+		AtkPower = 0;
 	}
 
-	public CharacterData (string id, int hp, int mp) {
+	public CharacterData (string id, string name, int hp, int level, float cooldown1, float cooldown2, float atkpower) {
 		charID = id;
+		Namae = name;
 		HP = hp;
-		MP = mp;
-
+		Level = level;
+		CooldownSkill1 = cooldown1;
+		CooldownSkill2 = cooldown2;
+		AtkPower = atkpower;
 	}
 
 	// Use this for initialization
@@ -37,17 +50,17 @@ public class CharacterData {
 		
 	}
 
+	/*
 	public static void SaveCharacterData(string char_id, int HP, int MP) {
 		//save (more like set) the entire database into 
 		CharacterData cd = new CharacterData();
 		cd.charID = char_id;
 		cd.HP = HP;
-		cd.MP = MP;
 
 		string charData = JsonUtility.ToJson (cd);
 		//Debug.Log (charData);
 		PlayerPrefs.SetString (char_id, charData);
-	}
+	}*/
 
 	public static void SaveCharacterData(CharacterData cd) {
 		string charData = JsonUtility.ToJson (cd);

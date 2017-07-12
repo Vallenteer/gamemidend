@@ -11,6 +11,7 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 
 	[SerializeField] bool kinemateObjectOnStart;
 	[SerializeField] string characterID;
+	[SerializeField] GameObject characterPrefab;
 	private TrackableBehaviour mTrackableBehaviour;
 	private GameController gameController;
 	private Rigidbody rb;
@@ -33,6 +34,9 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 		rb = GetComponentInChildren<Rigidbody> ();
 		if(rb)
 			rb.isKinematic = kinemateObjectOnStart;
+
+		// Disable child
+		transform.GetChild(0).gameObject.SetActive(false);
 
 		CameraDevice.Instance.SetFocusMode (CameraDevice.FocusMode.FOCUS_MODE_CONTINUOUSAUTO);
 	}
@@ -91,7 +95,9 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 		{
 			component.enabled = true;
 		}
-
+			
+		// Disable child
+		transform.GetChild(0).gameObject.SetActive(true);
 
 		Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
 	}
