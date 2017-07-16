@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,12 @@ public class GameController : MonoBehaviour {
 	[HideInInspector] public CharacterData SummonedCharacter;
 	[HideInInspector] public CharacterData EnemyCharacter;
 	private int healthVal;
+
+	#region UI Buttons Handler
+	public Button AtkButton;
+	public Button MgcButton;
+	public Button UltiButton;
+	#endregion
 
 	public bool HideArenaOnTrackingLost {
 		get {
@@ -50,6 +57,20 @@ public class GameController : MonoBehaviour {
 	void SetHealth(int val) {
 		healthVal = val;
 		healthText.text = "HP: " + val.ToString ();
+	}
+
+	public void Register3AttackButtonListeners(Action atkBtnCallBack, Action mgcBtnCallBack, Action ultBtnCallBack) {
+		AtkButton.onClick.AddListener (delegate() {
+			atkBtnCallBack();
+		});
+
+		MgcButton.onClick.AddListener (delegate() {
+			mgcBtnCallBack();
+		});
+
+		UltiButton.onClick.AddListener (delegate() {
+			ultBtnCallBack();
+		});
 	}
 
 }

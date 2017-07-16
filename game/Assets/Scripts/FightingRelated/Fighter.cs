@@ -60,6 +60,8 @@ public class Fighter : MonoBehaviour {
                 //Debug.Log(oponent.name);
             }
         }
+		GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ().Register3AttackButtonListeners (
+			OnAttackButton, OnMagicButton, OnMagicButton);
     }
 
     private float getRotationOpponent()
@@ -191,7 +193,7 @@ public class Fighter : MonoBehaviour {
         if (player == PlayerType.HUMAN)
         { animator.SetTrigger("SPECIAL"); }
 	}
-    public void OnUlimateButton() {
+    public void OnUltimateButton() {
         if (player == PlayerType.HUMAN)
         { animator.SetTrigger("ULITMATE"); }
     }
