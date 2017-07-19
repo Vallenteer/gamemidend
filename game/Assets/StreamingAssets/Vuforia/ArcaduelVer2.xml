@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
+    <ImageTarget name="RyuCardFront_large" size="1.000000 1.415929" />
+    <ImageTarget name="KenCardFront_large" size="1.000000 1.415929" />
     <ImageTarget name="maxresdefault" size="1.000000 0.562500" />
     <ImageTarget name="github4-700x467" size="1.000000 0.667143" />
     <ImageTarget name="eevee" size="1.000000 1.395918" />

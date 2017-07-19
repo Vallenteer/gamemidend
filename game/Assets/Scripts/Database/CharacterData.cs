@@ -14,8 +14,8 @@ public class CharacterData {
 	public string Namae;
 	public int HP;
 	public int Level;
-	public float CooldownSkill1;
-	public float CooldownSkill2;
+	public float CooldownMGC;
+	public float CooldownULT;
 	public float AtkPower;
 
 
@@ -25,8 +25,8 @@ public class CharacterData {
 		Namae = null;
 		HP = 0;
 		Level = 1;
-		CooldownSkill1 = 0;
-		CooldownSkill2 = 0;
+		CooldownMGC = 0;
+		CooldownULT = 0;
 		AtkPower = 0;
 	}
 
@@ -35,8 +35,8 @@ public class CharacterData {
 		Namae = name;
 		HP = hp;
 		Level = level;
-		CooldownSkill1 = cooldown1;
-		CooldownSkill2 = cooldown2;
+		CooldownMGC = cooldown1;
+		CooldownULT = cooldown2;
 		AtkPower = atkpower;
 	}
 

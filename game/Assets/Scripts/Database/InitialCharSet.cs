@@ -10,13 +10,14 @@ public class InitialCharSet : MonoBehaviour {
 		if (StaticVars.isFirstDataInitialized)
 			return;
 		//input character manually
-		CharacterDatas = new CharacterData[3];
+		CharacterDatas = new CharacterData[4];
 		EnemyDatas = new CharacterData[1];
 
 		/// 
-		CharacterDatas [0] = new CharacterData ("001", "Ryu", 100, 1, 5f, 10f, 1f);
-		CharacterDatas [1] = new CharacterData ("002", "Ken", 200, 1, 6f, 10f, 1f);
-		CharacterDatas [2] = new CharacterData ("003", "Boar", 200, 1, 6f, 10f, 1f);
+		CharacterDatas [0] = new CharacterData ("000", "000", 100, 1, 5f, 10f, 1f);
+		CharacterDatas [1] = new CharacterData ("001", "Ryu", 100, 1, 5f, 10f, 1f);
+		CharacterDatas [2] = new CharacterData ("002", "Ken", 200, 1, 6f, 10f, 1f);
+		CharacterDatas [3] = new CharacterData ("003", "Boar", 200, 1, 6f, 10f, 1f);
 		CharacterData.SaveCharacterData (CharacterDatas);
 
 		///

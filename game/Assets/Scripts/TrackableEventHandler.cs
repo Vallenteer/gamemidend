@@ -11,7 +11,7 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 
 	[SerializeField] bool kinemateObjectOnStart;
 	[SerializeField] string characterID;
-	[SerializeField] GameObject characterPrefab;
+	//[SerializeField] GameObject characterPrefab;
 	private TrackableBehaviour mTrackableBehaviour;
 	private GameController gameController;
 	private Rigidbody rb;
@@ -97,7 +97,9 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 		}
 			
 		// Disable child
-		transform.GetChild(0).gameObject.SetActive(true);
+		GameObject fighter = transform.GetChild(0).gameObject;
+		fighter.SetActive(true);
+		fighter.GetComponent<Fighter> ().ActivateFighter ();
 
 		Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
 	}

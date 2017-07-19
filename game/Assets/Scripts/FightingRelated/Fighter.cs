@@ -60,8 +60,10 @@ public class Fighter : MonoBehaviour {
                 //Debug.Log(oponent.name);
             }
         }
-		GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ().Register3AttackButtonListeners (
-			OnAttackButton, OnMagicButton, OnMagicButton);
+
+		/// FOR TESTING ONLY
+		/// activate fighter instantly OnStart instead of Vuforia OnTrackFound
+		ActivateFighter ();
     }
 
     private float getRotationOpponent()
@@ -195,7 +197,7 @@ public class Fighter : MonoBehaviour {
 	}
     public void OnUltimateButton() {
         if (player == PlayerType.HUMAN)
-        { animator.SetTrigger("ULITMATE"); }
+        { animator.SetTrigger("ULTIMATE"); }
     }
 
 
@@ -297,5 +299,11 @@ public class Fighter : MonoBehaviour {
             return health / MAX_HEALTH;
         }
     }
+
+	public void ActivateFighter()
+	{
+		GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ().Register3AttackButtonListeners (
+			OnAttackButton, OnMagicButton, OnUltimateButton);
+	}
     
 }
