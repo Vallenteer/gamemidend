@@ -29,9 +29,21 @@ public class GameController : MonoBehaviour {
 
 	public Image MgcCoolDown;
 	public Image UltCoolDown;
-	#endregion
+    #endregion
 
-	Stopwatch timerMagic;
+    #region BattleController
+    public int roundTime = 99;
+    private float lastTimeUpdate = 0;
+    private bool battleStarted;
+    private bool battleEnded;
+    public BannerController banner;
+    //Human
+    public Fighter player1;
+    //AI
+    public Fighter player2;
+    #endregion
+
+    Stopwatch timerMagic;
 	Stopwatch timerUlti;
 
 	public bool HideArenaOnTrackingLost {
@@ -46,14 +58,89 @@ public class GameController : MonoBehaviour {
 		arenaRenderer.enabled = false;
 		timerMagic = new Stopwatch ();
 		timerUlti = new Stopwatch ();
-	}
+
+        GameObject[] ToFindFighter = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject fighter in ToFindFighter)
+        {
+            if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.HUMAN && fighter.gameObject.activeInHierarchy == true)
+            {
+                player1 = fighter.GetComponent<Fighter>();
+            }
+            if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.AI)
+            {
+                player2 = fighter.GetComponent<Fighter>();
+            }
+        }
+        if (player1 != null)
+        {
+            banner.showRoundFight();
+        }
+
+    }
 	
 	// Update is called once per frame
-	void Update () {	
-		
-	}
+	void Update () {
+        
+        GameObject[] ToFindFighter = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject fighter in ToFindFighter)
+        {
+            // Debug.Log(fighter.name + "  for HUD");
+            if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.HUMAN && fighter.activeInHierarchy == true)
+            {
+                player1 = fighter.GetComponent<Fighter>();
+            }
+        }
+        if (player1 != null)
+        {
+            
+            if (!battleStarted && !banner.isAnimating)
+            {
+                battleStarted = true;
 
-	public void BuildArena(bool val) {
+                player1.enable = true;
+                player2.enable = true;
+            }
+        }
+        if (battleStarted && !battleEnded)
+        {
+            if (roundTime > 0 && Time.time - lastTimeUpdate > 1)
+            {
+                roundTime--;
+                lastTimeUpdate = Time.time;
+                if (roundTime == 0)
+                {
+                    expireTime();
+                }
+            }
+
+            if (player1.healtPercent <= 0)
+            {
+                banner.showYouLose();
+                battleEnded = true;
+
+            }
+            else if (player2.healtPercent <= 0)
+            {
+                banner.showYouWin();
+                battleEnded = true;
+            }
+        }
+
+    }
+
+    private void expireTime()
+    {
+        if (player1.healtPercent > player2.healtPercent)
+        {
+            player2.health = 0;
+        }
+        else
+        {
+            player1.health = 0;
+        }
+    }
+
+    public void BuildArena(bool val) {
 		//arenaCircle.SetActive (val);
 		arenaRenderer.enabled = val;
 	}

@@ -203,31 +203,34 @@ public class Fighter : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (player == PlayerType.HUMAN)
+
+        if (enable)
         {
-            UpdateHumanInput();
-        }
-        else
-        {
-            if (oponent == null ||oponent.gameObject.activeInHierarchy==false)
+            if (player == PlayerType.HUMAN)
             {
-                GameObject[] ToFindOponent = GameObject.FindGameObjectsWithTag("Player");
-                foreach (GameObject enemy in ToFindOponent)
-                {
-                    if (enemy != gameObject && enemy.activeInHierarchy == true)
-                    {
-                        oponent = enemy.GetComponent<Fighter>();
-                        Debug.Log(oponent.name);
-                    }
-                }
+                UpdateHumanInput();
             }
             else
             {
-                UpdateAiInput();
-            }
-            
-        }
+                if (oponent == null || oponent.gameObject.activeInHierarchy == false)
+                {
+                    GameObject[] ToFindOponent = GameObject.FindGameObjectsWithTag("Player");
+                    foreach (GameObject enemy in ToFindOponent)
+                    {
+                        if (enemy != gameObject && enemy.activeInHierarchy == true)
+                        {
+                            oponent = enemy.GetComponent<Fighter>();
+                            Debug.Log(oponent.name);
+                        }
+                    }
+                }
+                else
+                {
+                    UpdateAiInput();
+                }
 
+            }
+        }
         if (health <= 0 && currentState != FighterStates.DIED)
         {
             animator.SetTrigger("DIED");

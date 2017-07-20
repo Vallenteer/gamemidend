@@ -16,9 +16,9 @@ public class HudController : MonoBehaviour {
 
     public Text timerText;
 
-    //public BattleController battle;
+    public GameController battle;
 
-
+ 
     // Use this for initialization
     void Start()
     {
@@ -27,7 +27,7 @@ public class HudController : MonoBehaviour {
         foreach (GameObject fighter in ToFindFighter)
         {
           // Debug.Log(fighter.name + "  for HUD");
-            if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.HUMAN)
+            if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.HUMAN && fighter.gameObject.activeInHierarchy==true)
             {
                 player1 = fighter.GetComponent<Fighter>();
             }
@@ -43,7 +43,7 @@ public class HudController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //timerText.text = battle.roundTime.ToString();
+        timerText.text = battle.roundTime.ToString();
 
         if (leftBar.size > player1.healtPercent)
         {
@@ -65,9 +65,10 @@ public class HudController : MonoBehaviour {
             if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.HUMAN && fighter.activeInHierarchy==true)
             {
                 player1 = fighter.GetComponent<Fighter>();
+                player1Tag.text = player1.fighterName;
             }
         }
-        player1Tag.text = player1.fighterName;
+        
 
     }
 }
