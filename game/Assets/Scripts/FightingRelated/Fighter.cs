@@ -54,7 +54,7 @@ public class Fighter : MonoBehaviour {
         GameObject[] ToFindOponent = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject enemy in ToFindOponent)
         {
-            if (enemy != gameObject)
+            if (enemy != gameObject && enemy.activeInHierarchy==true)
             {
                 oponent = enemy.GetComponent<Fighter>();
                 //Debug.Log(oponent.name);
@@ -63,7 +63,7 @@ public class Fighter : MonoBehaviour {
 
 		/// FOR TESTING ONLY
 		/// activate fighter instantly OnStart instead of Vuforia OnTrackFound
-		ActivateFighter ();
+		//ActivateFighter ();
     }
 
     private float getRotationOpponent()
@@ -209,12 +209,12 @@ public class Fighter : MonoBehaviour {
         }
         else
         {
-            if (oponent == null)
+            if (oponent == null ||oponent.gameObject.activeInHierarchy==false)
             {
                 GameObject[] ToFindOponent = GameObject.FindGameObjectsWithTag("Player");
                 foreach (GameObject enemy in ToFindOponent)
                 {
-                    if (enemy != gameObject)
+                    if (enemy != gameObject && enemy.activeInHierarchy == true)
                     {
                         oponent = enemy.GetComponent<Fighter>();
                         Debug.Log(oponent.name);

@@ -26,7 +26,7 @@ public class HudController : MonoBehaviour {
        // Debug.Log(ToFindFighter.GetUpperBound(0));
         foreach (GameObject fighter in ToFindFighter)
         {
-           Debug.Log(fighter.name + "  for HUD");
+          // Debug.Log(fighter.name + "  for HUD");
             if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.HUMAN)
             {
                 player1 = fighter.GetComponent<Fighter>();
@@ -49,9 +49,25 @@ public class HudController : MonoBehaviour {
         {
             leftBar.size -= 0.01f;
         }
+        else {
+            leftBar.size = player1.healtPercent;
+        }
         if (rightBar.size > player2.healtPercent)
         {
             rightBar.size -= 0.01f;
         }
+
+        //if player switch card
+        GameObject[] ToFindFighter = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject fighter in ToFindFighter)
+        {
+            // Debug.Log(fighter.name + "  for HUD");
+            if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.HUMAN && fighter.activeInHierarchy==true)
+            {
+                player1 = fighter.GetComponent<Fighter>();
+            }
+        }
+        player1Tag.text = player1.fighterName;
+
     }
 }
