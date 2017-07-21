@@ -109,7 +109,6 @@ public class GameController : MonoBehaviour {
 				UICanvasGO.SetActive(true);
                 FirstBanner = true;
                 banner.showRoundFight();
-
             }
             
             
@@ -157,6 +156,19 @@ public class GameController : MonoBehaviour {
     public void BuildArena(bool val) {
 		//arenaCircle.SetActive (val);
 		arenaRenderer.enabled = val;
+	}
+
+	/// to be called from TrackableEventHandler during trackable found/lost
+	public void SetPlayerControlInteractable(bool val) {
+		if (SummonedCharacter != null) {
+			AtkButton.interactable = val;
+			MgcButton.interactable = val;
+			UltiButton.interactable = val;
+			MgcCoolDown.enabled = val;
+			UltCoolDown.enabled = val;
+		}
+
+		//TODO: KELVIN, tolong make sure dpad nya juga bisa set un/interactable
 	}
 
 
