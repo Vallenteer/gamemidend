@@ -14,6 +14,7 @@ public class BannerController : MonoBehaviour {
     {
         animator = GetComponent<Animator>();
         audioPlayer = GetComponent<AudioSource>();
+        animating = true;
 
     }
 

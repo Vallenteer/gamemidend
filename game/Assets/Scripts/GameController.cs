@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour {
     private float lastTimeUpdate = 0;
     private bool battleStarted;
     private bool battleEnded;
+    private bool FirstBanner;
     public BannerController banner;
     //Human
     public Fighter player1;
@@ -58,7 +59,8 @@ public class GameController : MonoBehaviour {
 		arenaRenderer.enabled = false;
 		timerMagic = new Stopwatch ();
 		timerUlti = new Stopwatch ();
-
+        battleStarted = false;
+        FirstBanner = false;
         GameObject[] ToFindFighter = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject fighter in ToFindFighter)
         {
@@ -71,16 +73,16 @@ public class GameController : MonoBehaviour {
                 player2 = fighter.GetComponent<Fighter>();
             }
         }
-        if (player1 != null)
-        {
-            banner.showRoundFight();
-        }
+        //if (player1 != null && player1.gameObject.activeInHierarchy==true)
+        //{
+        //    banner.showRoundFight();
+        //}
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
+        Debug.Log(battleStarted);
         GameObject[] ToFindFighter = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject fighter in ToFindFighter)
         {
@@ -92,18 +94,26 @@ public class GameController : MonoBehaviour {
         }
         if (player1 != null)
         {
-            
-            if (!battleStarted && !banner.isAnimating)
+
+            if (battleStarted==true && player1.enable == false)
+            {
+                player1.enable = true;
+            }
+            else if (battleStarted == false && !banner.isAnimating)
             {
                 battleStarted = true;
 
                 player1.enable = true;
                 player2.enable = true;
             }
-            if (battleStarted && player1.enable == false)
+            else if (battleStarted==false && player1.gameObject.activeInHierarchy == true  && FirstBanner==false)
             {
-                player1.enable = true;
+                FirstBanner = true;
+                banner.showRoundFight();
             }
+            
+            
+            
         }
         if (battleStarted && !battleEnded)
         {
