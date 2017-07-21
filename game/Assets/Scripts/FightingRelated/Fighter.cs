@@ -203,7 +203,10 @@ public class Fighter : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-
+        if (gameObject.activeInHierarchy == false)
+        {
+            enable=false;
+        }
         if (enable)
         {
             if (player == PlayerType.HUMAN)

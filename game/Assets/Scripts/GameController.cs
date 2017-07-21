@@ -100,6 +100,10 @@ public class GameController : MonoBehaviour {
                 player1.enable = true;
                 player2.enable = true;
             }
+            if (battleStarted && player1.enable == false)
+            {
+                player1.enable = true;
+            }
         }
         if (battleStarted && !battleEnded)
         {
