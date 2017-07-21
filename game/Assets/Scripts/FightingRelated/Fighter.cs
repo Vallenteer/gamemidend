@@ -61,8 +61,10 @@ public class Fighter : MonoBehaviour {
             }
         }
 
-		/// FOR TESTING ONLY
-		/// activate fighter instantly OnStart instead of Vuforia OnTrackFound
+		// FIXME
+		/// FOR TESTING ONLY　
+		/// uncomment to activate fighter instantly OnStart instead of Vuforia OnTrackFound
+		/// このファイターは
 		//ActivateFighter ();
     }
 
@@ -306,7 +308,7 @@ public class Fighter : MonoBehaviour {
         }
     }
 
-	public void ActivateFighter()
+	public void LinkFighter2Button()
 	{
 		GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ().Register3AttackButtonListeners (
 			OnAttackButton, OnMagicButton, OnUltimateButton);

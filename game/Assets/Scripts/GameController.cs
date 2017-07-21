@@ -17,7 +17,8 @@ public class GameController : MonoBehaviour {
 
 	[SerializeField] private Renderer arenaRenderer;
 	[SerializeField] bool hideArenaOnTrackingLost;
-	[SerializeField] Text healthText;
+	[SerializeField] GameObject UICanvasGO;
+
 	[HideInInspector] public CharacterData SummonedCharacter;
 	[HideInInspector] public CharacterData EnemyCharacter;
 	private int healthVal;
@@ -39,9 +40,9 @@ public class GameController : MonoBehaviour {
     private bool FirstBanner;
     public BannerController banner;
     //Human
-    public Fighter player1;
+	[HideInInspector] public Fighter player1;
     //AI
-    public Fighter player2;
+	[HideInInspector] public Fighter player2;
     #endregion
 
     Stopwatch timerMagic;
@@ -59,20 +60,11 @@ public class GameController : MonoBehaviour {
 		arenaRenderer.enabled = false;
 		timerMagic = new Stopwatch ();
 		timerUlti = new Stopwatch ();
+		UICanvasGO.SetActive (false);
         battleStarted = false;
         FirstBanner = false;
-        GameObject[] ToFindFighter = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject fighter in ToFindFighter)
-        {
-            if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.HUMAN && fighter.gameObject.activeInHierarchy == true)
-            {
-                player1 = fighter.GetComponent<Fighter>();
-            }
-            if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.AI)
-            {
-                player2 = fighter.GetComponent<Fighter>();
-            }
-        }
+
+        
         //if (player1 != null && player1.gameObject.activeInHierarchy==true)
         //{
         //    banner.showRoundFight();
@@ -82,16 +74,21 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(battleStarted);
-        GameObject[] ToFindFighter = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject fighter in ToFindFighter)
-        {
-            // Debug.Log(fighter.name + "  for HUD");
-            if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.HUMAN && fighter.activeInHierarchy == true)
-            {
-                player1 = fighter.GetComponent<Fighter>();
-            }
-        }
+        //Debug.Log(battleStarted);
+		GameObject[] ToFindFighter = GameObject.FindGameObjectsWithTag("Player");
+
+		foreach (GameObject fighter in ToFindFighter)
+		{
+			if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.HUMAN && fighter.gameObject.activeInHierarchy == true)
+			{
+				player1 = fighter.GetComponent<Fighter>();
+			}
+			if (fighter.GetComponent<Fighter>().player == Fighter.PlayerType.AI)
+			{
+				player2 = fighter.GetComponent<Fighter>();
+			}
+		}
+
         if (player1 != null)
         {
 
@@ -108,8 +105,11 @@ public class GameController : MonoBehaviour {
             }
             else if (battleStarted==false && player1.gameObject.activeInHierarchy == true  && FirstBanner==false)
             {
+				//TODO: add show button OnTrackableFound. find a better optimisation if possible
+				UICanvasGO.SetActive(true);
                 FirstBanner = true;
                 banner.showRoundFight();
+
             }
             
             
@@ -159,10 +159,10 @@ public class GameController : MonoBehaviour {
 		arenaRenderer.enabled = val;
 	}
 
-	public void CharacterFound(CharacterData cd) {
+
+	public void OnCharacterFound(CharacterData cd) {
 		BuildArena (true);
 		SummonedCharacter = cd;
-		//SetHealth (cd.HP);
 
 	}
 	/*
@@ -188,26 +188,25 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void StartCoolDownMGC() {
-		if (SummonedCharacter==null) {
-			CharacterData.LoadCharacterData ("000");
-			CharacterFound (CharacterData.LoadedCharData);
-		}
+		if (SummonedCharacter != null) {
+			//CharacterData.LoadCharacterData ("000");
+			//OnCharacterFound (CharacterData.LoadedCharData);
+			MgcButton.interactable = false;
+			timerMagic.Start ();
+			StartCoroutine ("CoolDownMGC");
 
-		MgcButton.interactable = false;
-		timerMagic.Start ();
-		StartCoroutine ("CoolDownMGC");
+		}
 	}
 
 
 	public void StartCoolDownULT() {
-		if (SummonedCharacter==null) {
-			CharacterData.LoadCharacterData ("000");
-			CharacterFound (CharacterData.LoadedCharData);
+		if (SummonedCharacter != null) {
+			//CharacterData.LoadCharacterData ("000");
+			//OnCharacterFound (CharacterData.LoadedCharData);
+			UltiButton.interactable = false;
+			timerUlti.Start ();
+			StartCoroutine ("CoolDownULT");
 		}
-
-		UltiButton.interactable = false;
-		timerUlti.Start ();
-		StartCoroutine ("CoolDownULT");
 	}
 
 

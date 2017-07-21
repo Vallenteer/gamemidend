@@ -30,9 +30,10 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 			mTrackableBehaviour.RegisterTrackableEventHandler(this);
 		}
 
+		//
 		gameController = Component.FindObjectOfType<GameController> ();
 		rb = GetComponentInChildren<Rigidbody> ();
-		if(rb)
+		if(rb && kinemateObjectOnStart)
 			rb.isKinematic = kinemateObjectOnStart;
 
 		// Disable child
@@ -76,10 +77,17 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 
 	private void OnTrackingFound()
 	{	
-		CharacterData.LoadCharacterData (characterID);
-		gameController.CharacterFound (CharacterData.LoadedCharData);
-		rb.isKinematic = false;
+		GameObject fighter = transform.GetChild (0).gameObject;
 
+		if (gameController.SummonedCharacter == null) {
+			CharacterData.LoadCharacterData (characterID);
+			gameController.OnCharacterFound (CharacterData.LoadedCharData);
+			fighter.GetComponent<Fighter> ().LinkFighter2Button ();
+		}
+
+		//rb.isKinematic = false;
+		//Debug.Log ("ontrackingfound");
+		/*
 		Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
 		Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
@@ -95,13 +103,15 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 		{
 			component.enabled = true;
 		}
+		*/
 			
-		// Disable child
-		GameObject fighter = transform.GetChild(0).gameObject;
-		fighter.SetActive(true);
-		fighter.GetComponent<Fighter> ().ActivateFighter ();
+		// Enable child
+		if (gameController.SummonedCharacter.charID.Equals (characterID)) {
+			
+			fighter.SetActive (true);
+			Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+		}
 
-		Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
 	}
 
 
@@ -109,10 +119,12 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 	{
 		//rbComponent.isKinematic = true;
 		if(gameController && gameController.HideArenaOnTrackingLost) gameController.BuildArena (false);
-		//gameController.DestroyArena();
+
 		if(rb)
 			rb.isKinematic = true;
-		
+
+		//FIXME: instead of matiin ini
+		/*
 		Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
 		Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
@@ -127,6 +139,10 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 		{
 			component.enabled = false;
 		}
+		*/
+		GameObject fighter = transform.GetChild(0).gameObject;
+		fighter.SetActive(false);
+
 
 		Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
 	}
