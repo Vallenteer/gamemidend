@@ -23,6 +23,8 @@ public class GameController : MonoBehaviour {
 	[HideInInspector] public CharacterData EnemyCharacter;
 	private int healthVal;
 
+    SoundManager soundManager;
+
 	#region UI Buttons Handler
 	public Button AtkButton;
 	public Button MgcButton;
@@ -53,9 +55,13 @@ public class GameController : MonoBehaviour {
 			return hideArenaOnTrackingLost;
 		}
 	}
-			
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+       soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+    }
+
+    // Use this for initialization
+    void Start () {
 		//arenaCircle.SetActive (false);
 		arenaRenderer.enabled = false;
 		timerMagic = new Stopwatch ();
@@ -134,6 +140,7 @@ public class GameController : MonoBehaviour {
             }
             else if (player2.healtPercent <= 0)
             {
+                soundManager.BgmWin();
                 banner.showYouWin();
                 battleEnded = true;
             }
