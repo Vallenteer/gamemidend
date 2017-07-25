@@ -9,6 +9,9 @@ public class InitialCharSet : MonoBehaviour {
 	void Awake() {
 		if (StaticVars.isFirstDataInitialized)
 			return;
+
+		StaticVars.isFirstDataInitialized = true;
+
 		//input character manually
 		CharacterDatas = new CharacterData[4];
 		EnemyDatas = new CharacterData[1];

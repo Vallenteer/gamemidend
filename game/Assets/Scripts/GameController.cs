@@ -5,6 +5,7 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 using Debug=UnityEngine.Debug;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 	//start vuforia camera
@@ -41,6 +42,7 @@ public class GameController : MonoBehaviour {
 	public Text NameText;
 	public Text LevelText;
 	public Text ExpText;
+	public GameObject ToMenuButton;
 
     #region BattleController
     public int roundTime = 99;
@@ -78,6 +80,7 @@ public class GameController : MonoBehaviour {
         battleStarted = false;
         FirstBanner = false;
 		BattleResUI.SetActive (false);
+		ToMenuButton.SetActive (false);
         
         //if (player1 != null && player1.gameObject.activeInHierarchy==true)
         //{
@@ -140,6 +143,7 @@ public class GameController : MonoBehaviour {
                 {
                     expireTime();
 					//TODO: call battle result
+					ToMenuButton.SetActive(true);
                 }
             }
 
@@ -148,6 +152,7 @@ public class GameController : MonoBehaviour {
                 banner.showYouLose();
                 battleEnded = true;
 				//TODO: call battle result
+				ToMenuButton.SetActive(true);
             }
             else if (player2.healtPercent <= 0)
             {
@@ -155,7 +160,7 @@ public class GameController : MonoBehaviour {
                 banner.showYouWin();
                 battleEnded = true;
 				//TODO: call battle result
-				ShowBattleResultUI(true);
+				ShowBattleResultUI();
             }
         }
 
@@ -197,12 +202,8 @@ public class GameController : MonoBehaviour {
 		SummonedCharacter = cd;
 
 	}
-	/*
-	void SetHealth(int val) {
-		healthVal = val;
-		healthText.text = "HP: " + val.ToString ();
-	}*/
 
+	#region Various UI Buttons
 	public void Register3AttackButtonListeners(Action atkBtnCallBack, Action mgcBtnCallBack, Action ultBtnCallBack) {
 		AtkButton.onClick.AddListener (delegate() {
 			atkBtnCallBack();
@@ -274,18 +275,42 @@ public class GameController : MonoBehaviour {
 		yield break;
 	}
 
-	void ShowBattleResultUI(bool wins) {
+	public void OnToMenuButton() {
+		SceneManager.LoadScene(0);
+	}
+
+	#endregion
+
+	void ShowBattleResultUI() {
 		Debug.Log ("ShowBattleResultUI");
 		BattleResUI.SetActive (true);
+
+		int earnedExpPoint;
+		int.TryParse (EarnedExpText.text, out earnedExpPoint);
+
+		// add the earned exp!
+		SummonedCharacter.CurExp += earnedExpPoint;
+
 		NameText.text = SummonedCharacter.Namae;
-		LevelText.text = SummonedCharacter.Level.ToString ();
+		LevelText.text = "Level " + SummonedCharacter.Level.ToString ();
 
-		if(wins) {
-			int result;
-			int.TryParse (EarnedExpText.text, out result);
-			ExpText.text = result + "/" + SummonedCharacter.TargetExp;
-			SummonedCharacter.CurExp += result;
-
+		// when exp has exceeded the target, *drumroll* it gets leveled up :D
+		if (SummonedCharacter.CurExp >= SummonedCharacter.TargetExp) {
+			SummonedCharacter.CurExp %= SummonedCharacter.TargetExp;
+			if (SummonedCharacter.LevelUp ()) {
+				LevelText.text = "Level up!";
+			} else {
+				// can't level up anymore
+				SummonedCharacter.CurExp = SummonedCharacter.TargetExp;
+			}
+			// add character powers????
 		}
+		ExpText.text = SummonedCharacter.CurExp + "/" + SummonedCharacter.TargetExp + " exp";
+
+		// save the character data progress
+		CharacterData.SaveCharacterData (SummonedCharacter);
+
+
+		ToMenuButton.SetActive (true);
 	}
 }

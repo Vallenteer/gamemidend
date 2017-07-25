@@ -10,6 +10,7 @@ public class CharacterData {
 	//debug log the loaded char data
 
 	public static CharacterData LoadedCharData;
+
 	public string charID;
 	public string Namae;
 	public int HP;
@@ -41,6 +42,7 @@ public class CharacterData {
 		CooldownMGC = cooldown1;
 		CooldownULT = cooldown2;
 		AtkPower = atkpower;
+		TargetExp = CurrTargetExp (level);
 	}
 
 	// Use this for initialization
@@ -91,5 +93,18 @@ public class CharacterData {
 		return 1;
 	}
 
+	public int CurrTargetExp(int level) {
+		float c1 = 5f;
+		float c2 = 6f;
+		return Mathf.CeilToInt(Mathf.Pow (c1, (1 + level / c2)));
+	}
 
+	public bool LevelUp() {
+		if (Level == 15)
+			return false;
+		
+		Level += 1;
+		TargetExp = CurrTargetExp (Level);
+		return true;
+	}
 }
