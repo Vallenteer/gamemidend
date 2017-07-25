@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour {
 	[SerializeField] private Renderer arenaRenderer;
 	[SerializeField] bool hideArenaOnTrackingLost;
 	[SerializeField] GameObject UICanvasGO;
+	[SerializeField] GameObject PleaseScanTextGO;
 
 	[HideInInspector] public CharacterData SummonedCharacter;
 	[HideInInspector] public CharacterData EnemyCharacter;
@@ -77,6 +78,7 @@ public class GameController : MonoBehaviour {
 		timerMagic = new Stopwatch ();
 		timerUlti = new Stopwatch ();
 		UICanvasGO.SetActive (false);
+		PleaseScanTextGO.SetActive (true);
         battleStarted = false;
         FirstBanner = false;
 		BattleResUI.SetActive (false);
@@ -126,6 +128,7 @@ public class GameController : MonoBehaviour {
                 //TODO: add show button OnTrackableFound. find a better optimisation if possible
                 //Debug.Log("3 Kelvin");
                 UICanvasGO.SetActive(true);
+				PleaseScanTextGO.SetActive (false);
                 FirstBanner = true;
                 banner.showRoundFight();
             }
@@ -142,7 +145,6 @@ public class GameController : MonoBehaviour {
                 if (roundTime == 0)
                 {
                     expireTime();
-					//TODO: call battle result
 					ToMenuButton.SetActive(true);
                 }
             }
@@ -151,7 +153,6 @@ public class GameController : MonoBehaviour {
             {
                 banner.showYouLose();
                 battleEnded = true;
-				//TODO: call battle result
 				ToMenuButton.SetActive(true);
             }
             else if (player2.healtPercent <= 0)
@@ -159,7 +160,6 @@ public class GameController : MonoBehaviour {
                 soundManager.BgmWin();
                 banner.showYouWin();
                 battleEnded = true;
-				//TODO: call battle result
 				ShowBattleResultUI();
             }
         }
