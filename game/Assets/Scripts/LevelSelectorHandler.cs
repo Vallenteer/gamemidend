@@ -14,6 +14,11 @@ public class LevelSelectorHandler : MonoBehaviour {
 	}
 
 	public void OnLevel1Button() {
-		SceneManager.LoadScene ("VuforiaTestGameplay");
+		if (!StaticVars.StoryLv1HasPlayed) {
+			StaticVars.StoryLv1HasPlayed = true;
+			SceneManager.LoadScene ("AnimatedScene");
+		} else {
+			SceneManager.LoadScene (3);
+		}
 	}
 }
