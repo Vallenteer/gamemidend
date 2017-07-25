@@ -88,7 +88,7 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //Debug.Log(battleStarted);
+       // Debug.Log(battleStarted);
 		GameObject[] ToFindFighter = GameObject.FindGameObjectsWithTag("Player");
 
 		foreach (GameObject fighter in ToFindFighter)
@@ -102,16 +102,17 @@ public class GameController : MonoBehaviour {
 				player2 = fighter.GetComponent<Fighter>();
 			}
 		}
-
-        if (player1 != null)
+       if (player1 != null)
         {
-
+            
             if (battleStarted==true && player1.enable == false)
             {
+               // Debug.Log("1 Kelvin");
                 player1.enable = true;
             }
-            else if (battleStarted == false && !banner.isAnimating)
+            else if (battleStarted == false && banner.isAnimating==false)
             {
+                //Debug.Log("2 Kelvin");
                 battleStarted = true;
 
                 player1.enable = true;
@@ -119,8 +120,9 @@ public class GameController : MonoBehaviour {
             }
             else if (battleStarted==false && player1.gameObject.activeInHierarchy == true  && FirstBanner==false)
             {
-				//TODO: add show button OnTrackableFound. find a better optimisation if possible
-				UICanvasGO.SetActive(true);
+                //TODO: add show button OnTrackableFound. find a better optimisation if possible
+                //Debug.Log("3 Kelvin");
+                UICanvasGO.SetActive(true);
                 FirstBanner = true;
                 banner.showRoundFight();
             }
