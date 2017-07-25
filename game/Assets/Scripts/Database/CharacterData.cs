@@ -17,7 +17,8 @@ public class CharacterData {
 	public float CooldownMGC;
 	public float CooldownULT;
 	public float AtkPower;
-
+	public int CurExp;
+	public int TargetExp;
 
 	public CharacterData () {
 		charID = null;
@@ -28,6 +29,8 @@ public class CharacterData {
 		CooldownMGC = 0;
 		CooldownULT = 0;
 		AtkPower = 0;
+		CurExp = 0;
+		TargetExp = 0;
 	}
 
 	public CharacterData (string id, string name, int hp, int level, float cooldown1, float cooldown2, float atkpower) {

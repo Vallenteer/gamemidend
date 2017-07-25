@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour {
     SoundManager soundManager;
 
 	#region UI Buttons Handler
+	[Header("UI BUTTONS")]
 	public Button AtkButton;
 	public Button MgcButton;
 	public Button UltiButton;
@@ -33,6 +34,13 @@ public class GameController : MonoBehaviour {
 	public Image MgcCoolDown;
 	public Image UltCoolDown;
     #endregion
+
+	[Header("BATTLE RESULT")]
+	public GameObject BattleResUI;
+	public Text EarnedExpText;
+	public Text NameText;
+	public Text LevelText;
+	public Text ExpText;
 
     #region BattleController
     public int roundTime = 99;
@@ -69,7 +77,7 @@ public class GameController : MonoBehaviour {
 		UICanvasGO.SetActive (false);
         battleStarted = false;
         FirstBanner = false;
-
+		BattleResUI.SetActive (false);
         
         //if (player1 != null && player1.gameObject.activeInHierarchy==true)
         //{
@@ -129,6 +137,7 @@ public class GameController : MonoBehaviour {
                 if (roundTime == 0)
                 {
                     expireTime();
+					//TODO: call battle result
                 }
             }
 
@@ -136,13 +145,15 @@ public class GameController : MonoBehaviour {
             {
                 banner.showYouLose();
                 battleEnded = true;
-
+				//TODO: call battle result
             }
             else if (player2.healtPercent <= 0)
             {
                 soundManager.BgmWin();
                 banner.showYouWin();
                 battleEnded = true;
+				//TODO: call battle result
+				ShowBattleResultUI(true);
             }
         }
 
@@ -261,4 +272,18 @@ public class GameController : MonoBehaviour {
 		yield break;
 	}
 
+	void ShowBattleResultUI(bool wins) {
+		Debug.Log ("ShowBattleResultUI");
+		BattleResUI.SetActive (true);
+		NameText.text = SummonedCharacter.Namae;
+		LevelText.text = SummonedCharacter.Level.ToString ();
+
+		if(wins) {
+			int result;
+			int.TryParse (EarnedExpText.text, out result);
+			ExpText.text = result + "/" + SummonedCharacter.TargetExp;
+			SummonedCharacter.CurExp += result;
+
+		}
+	}
 }
