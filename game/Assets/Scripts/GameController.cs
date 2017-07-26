@@ -66,9 +66,11 @@ public class GameController : MonoBehaviour {
 			return hideArenaOnTrackingLost;
 		}
 	}
+    
     private void Awake()
     {
        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+       soundManager.BgmFight1();
     }
 
     // Use this for initialization
@@ -153,6 +155,7 @@ public class GameController : MonoBehaviour {
 
             if (player1.healtPercent <= 0)
             {
+                soundManager.BgmLose();
                 banner.showYouLose();
                 battleEnded = true;
 				ToMenuButton.SetActive(true);

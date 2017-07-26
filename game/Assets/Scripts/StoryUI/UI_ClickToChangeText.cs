@@ -18,6 +18,12 @@ public class UI_ClickToChangeText : MonoBehaviour {
 
     [SerializeField] int NextScene;
 
+    SoundManager soundManager;
+    private void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+        soundManager.BgmStory() ;
+    }
 
     // Use this for initialization
     void Start () {

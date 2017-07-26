@@ -7,8 +7,15 @@ public class MainMenuController : MonoBehaviour {
 	public GameObject TitleUI;
 	public GameObject LevelSelectorUI;
 
-	// Use this for initialization
-	void Start () {
+    SoundManager soundManager;
+    private void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+        soundManager.BgmMenu();
+    }
+
+    // Use this for initialization
+    void Start () {
 		TitleUI.SetActive (true);
 		LevelSelectorUI.SetActive (false);
 	}

@@ -18,9 +18,7 @@ public class SoundManager : MonoBehaviour {
     {
         AudioBGM = GetComponent<AudioSource>();
         DontDestroyOnLoad(gameObject);
-        //in Menu
-        AudioBGM.clip = SoundClip[0];
-        AudioBGM.Play();
+       
     }
 
     

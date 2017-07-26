@@ -15,7 +15,7 @@ public class LevelSelectorHandler : MonoBehaviour {
 
 	public void OnLevel1Button() {
 		if (!StaticVars.StoryLv1HasPlayed) {
-			StaticVars.StoryLv1HasPlayed = true;
+            StaticVars.StoryLv1HasPlayed = true;
 			SceneManager.LoadScene ("AnimatedScene");
 		} else {
 			SceneManager.LoadScene (3);
