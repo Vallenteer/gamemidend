@@ -313,5 +313,14 @@ public class Fighter : MonoBehaviour {
 		GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ().Register3AttackButtonListeners (
 			OnAttackButton, OnMagicButton, OnUltimateButton);
 	}
+
+	public void UpdateDamagePoint() {
+		HitColider[] hitcolliders = transform.GetComponentsInChildren<HitColider> ();
+
+		for (int i = 0; i < hitcolliders.Length; i++) {
+			hitcolliders [i].UpdateDamage ();
+		}
+
+	}
     
 }

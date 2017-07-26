@@ -24,6 +24,9 @@ namespace DigitalRuby.PyroParticles
             
             Fighter fighter = col.gameObject.GetComponent<Fighter>();
             Debug.Log("HIT " +fighter.name);
+
+			damage = CharacterData.LoadedCharData.AtkPower;
+
             if (fighter != null && fighter != caster)
             {
                 fighter.hurt(damage);

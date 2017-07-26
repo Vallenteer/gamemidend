@@ -77,8 +77,11 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 
 		if (gameController.SummonedCharacter == null) {
 			CharacterData.LoadCharacterData (characterID);
-			gameController.OnCharacterFound (CharacterData.LoadedCharData);
+
 			fighter.GetComponent<Fighter> ().LinkFighter2Button ();
+			fighter.GetComponent<Fighter> ().UpdateDamagePoint ();
+
+			gameController.OnCharacterFound (CharacterData.LoadedCharData);
 		}
 			
 		// Enable child

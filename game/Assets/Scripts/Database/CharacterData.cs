@@ -18,6 +18,8 @@ public class CharacterData {
 	public float CooldownMGC;
 	public float CooldownULT;
 	public float AtkPower;
+	public float MgcPower;
+	public float UltiPower;
 	public int CurExp;
 	public int TargetExp;
 
@@ -41,8 +43,13 @@ public class CharacterData {
 		Level = level;
 		CooldownMGC = cooldown1;
 		CooldownULT = cooldown2;
-		AtkPower = atkpower;
 		TargetExp = CurrTargetExp (level);
+
+		// FIXME: damage nya masih diatur di inspector somewhere :/
+		AtkPower = 0;
+		MgcPower = 0;
+		UltiPower = 0;
+
 	}
 
 	// Use this for initialization
