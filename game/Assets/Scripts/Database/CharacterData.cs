@@ -48,7 +48,7 @@ public class CharacterData {
 		// FIXME: damage nya masih diatur di inspector somewhere :/
 		AtkPower = 0;
 		MgcPower = 0;
-		UltiPower = 0;
+		UltiPower = 30f;
 
 	}
 
@@ -112,6 +112,11 @@ public class CharacterData {
 		
 		Level += 1;
 		TargetExp = CurrTargetExp (Level);
+
+		AtkPower *= 1.2;
+		MgcPower *= 1.2;
+		UltiPower *= 1.2;
+
 		return true;
 	}
 }
