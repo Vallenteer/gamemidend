@@ -146,6 +146,8 @@ public class GameController : MonoBehaviour {
                 {
                     expireTime();
 					ToMenuButton.SetActive(true);
+					// save the character data progress
+					CharacterData.SaveCharacterData (SummonedCharacter);
                 }
             }
 
@@ -154,6 +156,8 @@ public class GameController : MonoBehaviour {
                 banner.showYouLose();
                 battleEnded = true;
 				ToMenuButton.SetActive(true);
+				// save the character data progress
+				CharacterData.SaveCharacterData (SummonedCharacter);
             }
             else if (player2.healtPercent <= 0)
             {
