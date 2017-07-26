@@ -17,6 +17,7 @@ public class SoundManager : MonoBehaviour {
     void Awake()
     {
         AudioBGM = GetComponent<AudioSource>();
+        
         DontDestroyOnLoad(gameObject);
        
     }

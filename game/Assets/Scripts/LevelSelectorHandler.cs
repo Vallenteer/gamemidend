@@ -21,4 +21,12 @@ public class LevelSelectorHandler : MonoBehaviour {
 			SceneManager.LoadScene (3);
 		}
 	}
+    public void OnLevel2Button()
+    {
+        SceneManager.LoadScene(4);
+    }
+    public void OnLevel3Button()
+    {
+        SceneManager.LoadScene(6);
+    }
 }
