@@ -113,9 +113,9 @@ public class CharacterData {
 		Level += 1;
 		TargetExp = CurrTargetExp (Level);
 
-		AtkPower *= 1.2;
-		MgcPower *= 1.2;
-		UltiPower *= 1.2;
+		AtkPower *= 1.2f;
+		MgcPower *= 1.2f;
+		UltiPower *= 1.2f;
 
 		return true;
 	}
