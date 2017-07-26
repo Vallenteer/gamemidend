@@ -23,10 +23,10 @@ namespace DigitalRuby.PyroParticles
         {
             
             Fighter fighter = col.gameObject.GetComponent<Fighter>();
-            Debug.Log("HIT " +fighter.name);
+            
 			GameController gameController = Component.FindObjectOfType<GameController> ();
 			//damage = CharacterData.LoadedCharData.AtkPower;
-			if (caster.Equals (gameController.player1)) {
+			if (caster== gameController.player1) {
 				// berarti caster adalah character player
 				// update damage sesuai karakter
 				if (gameController.SummonedCharacter.UltiPower > 0) {
@@ -38,6 +38,7 @@ namespace DigitalRuby.PyroParticles
 
             if (fighter != null && fighter != caster)
             {
+                Debug.Log("HIT " +col);
                 fighter.hurt(damage);
                 Destroy(gameObject);
             }

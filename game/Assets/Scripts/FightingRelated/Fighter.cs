@@ -12,9 +12,10 @@ public class Fighter : MonoBehaviour {
     float leftJoystickInputX;
     float leftJoystickInputY;
 
-    public static float MAX_HEALTH = 100f;
+    public float MAX_HEALTH =100f;
 
-    public float health = MAX_HEALTH;
+    [Tooltip("Current Health Supposed to be Below Max Health")]
+    public float health;
     public string fighterName;
     //FOR AI
     public Fighter oponent;
@@ -46,6 +47,7 @@ public class Fighter : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        health = MAX_HEALTH;
         myBody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         sizeModel = transform.localScale.x;

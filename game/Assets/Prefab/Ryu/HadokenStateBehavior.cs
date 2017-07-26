@@ -15,13 +15,14 @@ public class HadokenStateBehavior : FighterStateBehavior
        // Debug.Log(fighter.name);
         GameObject instance = Object.Instantiate(
             Hadoken,
-                new Vector3(fighterX, fighter.transform.position.y+1, fighter.transform.position.z),
+                new Vector3(fighterX, fighter.transform.position.y, fighter.transform.position.z),
                 Quaternion.Euler(0, fighter.transform.localRotation.y, 0)
                 ) as GameObject;
         
         instance.transform.localScale = new Vector3(fighter.transform.localScale.x * size, fighter.transform.localScale.y*size, fighter.transform.localScale.z*size);
         instance.transform.localRotation = new Quaternion(fighter.transform.localRotation.x, fighter.transform.localRotation.y, fighter.transform.localRotation.z, fighter.transform.localRotation.w);
         DigitalRuby.PyroParticles.FireCollisionForwardScript hadokenScript = instance.GetComponentInChildren<DigitalRuby.PyroParticles.FireCollisionForwardScript>();
+        Debug.Log("HADOKEN");
         hadokenScript.caster = fighter;
         
     }
