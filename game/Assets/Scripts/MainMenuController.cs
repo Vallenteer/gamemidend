@@ -7,9 +7,14 @@ public class MainMenuController : MonoBehaviour {
 	public GameObject TitleUI;
 	public GameObject LevelSelectorUI;
 
+    [SerializeField] SoundManager BGM;
     SoundManager soundManager;
     private void Awake()
     {
+        if (!GameObject.FindGameObjectWithTag("SoundManager"))
+        {
+            DontDestroyOnLoad(Instantiate(BGM));
+        }
         soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         soundManager.BgmMenu();
     }
